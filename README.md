@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-Acesse [http://localhost:3000](http://localhost:3000).
+Acesse [https://flowpay-frontend-rjzhpdcan-thiagom42s-projects.vercel.app/](https://flowpay-frontend-rjzhpdcan-thiagom42s-projects.vercel.app/).
 
 ## API
 
