@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FlowPay — Atendimentos
 
-## Getting Started
+Interface web para abertura e acompanhamento de atendimentos em tempo real.
 
-First, run the development server:
+## O que faz
+
+- Formulário para abrir um novo atendimento (nome, e-mail, telefone, assunto)
+- Exibe os atendimentos criados em cards com status, atendente, time e prioridade
+- Atualiza cada card automaticamente a cada 2 segundos enquanto o atendimento estiver em aberto
+- Para de atualizar quando o atendimento é concluído, encerrado ou cancelado
+
+## Stack
+
+- **Next.js 16** (App Router)
+- **TypeScript**
+- **Tailwind CSS v4**
+- **react-markdown** + **remark-gfm** — renderiza o conteúdo dos cards em markdown com tabelas
+
+## Como rodar
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Aponta para `BASE_URL` definido em `src/app/page.tsx`. Por padrão usa o ambiente de produção do backend. Para desenvolvimento local, troque para `http://localhost:8000/api/v1`.
