@@ -9,6 +9,8 @@ import remarkGfm from "remark-gfm";
 interface Assunto {
   id: number;
   nome: string;
+  time_atendimento_id: number;
+  ativo: boolean;
 }
 
 interface AtendimentoResponse {
@@ -60,16 +62,6 @@ interface ValidationErrors {
 
 const BASE_URL = "https://flowpay-backend-production-aw7fs6.laravel.cloud/api/v1";
 
-const ASSUNTOS: Assunto[] = [
-  { id: 1, nome: "Bloqueio de cartão" },
-  { id: 2, nome: "Desbloqueio de cartão" },
-  { id: 3, nome: "Transferência não reconhecida" },
-  { id: 4, nome: "Contestação de cobrança" },
-  { id: 5, nome: "Atualização de dados cadastrais" },
-  { id: 6, nome: "Problemas com Pix" },
-  { id: 7, nome: "Limite de crédito" },
-  { id: 8, nome: "Outros" },
-];
 
 const STATUS_MAP: Record<string, string> = {
   em_atendimento: "✅ Em atendimento",
@@ -153,6 +145,16 @@ export default function AtendimentosPage() {
   const [fieldErrors, setFieldErrors] = useState<ValidationErrors>({});
   const [globalError, setGlobalError] = useState("");
   const [atendimentos, setAtendimentos] = useState<AtendimentoResponse[]>([]);
+  const [assuntos, setAssuntos] = useState<Assunto[]>([]);
+  const [assuntosLoading, setAssuntosLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/assuntos`)
+      .then((r) => r.json())
+      .then((data: Assunto[]) => setAssuntos(data.filter((a) => a.ativo)))
+      .catch(() => {})
+      .finally(() => setAssuntosLoading(false));
+  }, []);
 
   // Ref so the interval callback always sees the latest list without re-registering
   const atendimentosRef = useRef(atendimentos);
@@ -325,8 +327,10 @@ export default function AtendimentosPage() {
               onChange={handleChange}
               className={inputClass(!!fieldErrors.assunto_id)}
             >
-              <option value="">Selecione um assunto</option>
-              {ASSUNTOS.map((a) => (
+              <option value="">
+                {assuntosLoading ? "Carregando…" : "Selecione um assunto"}
+              </option>
+              {assuntos.map((a) => (
                 <option key={a.id} value={a.id}>
                   {a.nome}
                 </option>
