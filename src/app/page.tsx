@@ -58,7 +58,7 @@ interface ValidationErrors {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const BASE_URL = "http://localhost:8000/api/v1";
+const BASE_URL = "https://flowpay-backend-production-aw7fs6.laravel.cloud/api/v1";
 
 const ASSUNTOS: Assunto[] = [
   { id: 1, nome: "Bloqueio de cartão" },
